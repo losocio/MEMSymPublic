@@ -68,12 +68,13 @@ int main(){
     /*if(p_OUTPUT == NULL){
 		printf("p_OUTPUT\n");
         return -1;
+    }else{
+    	fwrite(datos_cache,sizeof(datos_cache),1,p_OUTPUT);
     }*/
 	
 	LimpiarCACHE(datos_cache);
 	printf("Estado inicial de la cache:\n");
 	VolcarCACHE(datos_cache);
-	//EscribirCACHEBin(datos_cache);
 
 	//Guardo los contenidos de CONTENTS_RAM en Simul_RAM 
 	while(fscanf(p_CONTENTS_RAM, "%c", Simul_RAM) != EOF);
