@@ -19,6 +19,7 @@ typedef struct{
 //Prototipos de funciones utilizadas
 void LimpiarCACHE(T_CACHE_LINE tbl[NUM_FILAS]);
 void VolcarCACHE(T_CACHE_LINE *tbl);
+//void EscribirCACHEBin(T_CACHE_LINE [NUM_FILAS]);
 void INTaBIN(unsigned int num, int *bin);
 int BINaINT(int *bin, int pos);
 void ParsearDireccion(unsigned int addr, int *ETQ, int *palabra, int *linea, int *bloque);
@@ -50,9 +51,11 @@ int main(){
 
 	FILE *p_CONTENTS_RAM;
 	FILE *p_accesos_memoria;
+	//FILE *p_OUTPUT;
 
 	p_CONTENTS_RAM = fopen("CONTENTS_RAM.bin", "rb");
 	p_accesos_memoria = fopen("accesos_memoria.txt", "r");
+	//p_OUTPUT = fopen("OUTPUT.bin","wb");
 
 	if(p_CONTENTS_RAM  == NULL){
 		printf("p_CONTENTS_RAM\n");
@@ -63,10 +66,15 @@ int main(){
 		printf("p_accesos_memoria\n");
         return -1;
     }
-
+    /*if(p_OUTPUT == NULL){
+		printf("p_OUTPUT\n");
+        return -1;
+    }*/
+	
 	LimpiarCACHE(datos_cache);
 	printf("Estado inicial de la cache:\n");
 	VolcarCACHE(datos_cache);
+	//EscribirCACHEBin(datos_cache);
 
 	//Guardo los contenidos de CONTENTS_RAM en Simul_RAM 
 	while(fscanf(p_CONTENTS_RAM, "%c", Simul_RAM) != EOF);
@@ -128,7 +136,10 @@ void VolcarCACHE(T_CACHE_LINE *tbl){
     }
     printf("\n");
 }
+//Funcion que escribe en el archivo binario el contenido de la cache
+/*void EscribirCACHEBin(T_CACHE_LINE [NUM_FILAS]){
 
+}*/
 //Funcion que traduce valores int a arrays de bits eqivalentes
 void INTaBIN(unsigned int num, int *bin){
 	div_t division;
