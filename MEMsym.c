@@ -51,21 +51,29 @@ int main(){
 
 	T_CACHE_LINE datos_cache[NUM_FILAS];
 
-	//Abro los ficheros CONTENTS_RAM.bin y accesos_memoria.txt
+	//Abro los ficheros CONTENTS_RAM.bin, accesos_memoria.txt y CONTENTS_CACHE.bin
 	FILE *p_CONTENTS_RAM;
 	FILE *p_accesos_memoria;
+	FILE *p_CONTENTS_CACHE;
 	p_CONTENTS_RAM = fopen("CONTENTS_RAM.bin", "rb");
 	p_accesos_memoria = fopen("accesos_memoria.txt", "r");
+	p_CONTENTS_CACHE = fopen("CONTENTS_CACHE.bin", "wb");
 
 	//Control de errores de p_CONTENTS_RAM
 	if(p_CONTENTS_RAM  == NULL){
-		printf("p_CONTENTS_RAM\n");
+		printf("Error al abrir CONTENTS_RAM.bin\n");
 		return -1;
     }
 
 	//Control de errores de p_accesos_memoria
     if(p_accesos_memoria == NULL){
-		printf("p_accesos_memoria\n");
+		printf("Error al abrir accesos_memoria.txt\n");
+        return -1;
+    }
+
+	//Control de errores de p_CONTENTS_CACHE
+	if(p_CONTENTS_CACHE == NULL){
+		printf("Error al crear CONTENTS_CACHE.bin\n");
         return -1;
     }
 
@@ -114,9 +122,15 @@ int main(){
 	texto[contador_texto] = '\0';
 	printf("Texto leido: %s\n", texto);
 
+	//Escribo los contenidos de la cache en el fichero CONTENTS_CACHE.bin
+	for(int i = 0; i < NUM_FILAS; i++){
+		fwrite(datos_cache[i].Data, TAM_LINEA, 1, p_CONTENTS_CACHE);
+	}
+
 	//Cierro los ficheros previamente abiertos
 	fclose(p_CONTENTS_RAM);
 	fclose(p_accesos_memoria);
+	fclose(p_CONTENTS_CACHE);
 
 	return 0;
 }
