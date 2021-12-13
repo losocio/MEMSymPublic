@@ -1,4 +1,3 @@
-# MEMSymPublic
-MEMSym pero público, no conseguiamos que funcionase bien en privado.
+# MEMsym
 Álvaro Diego de Ocio Fernández-Urrutia
 Rubén Pascual Más
