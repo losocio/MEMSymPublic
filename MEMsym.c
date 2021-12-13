@@ -95,9 +95,11 @@ int main(){
 		linea_int = BINaINT(linea_bin, DIR_LINEA);
 		palabra_int = BINaINT(palabra_bin, DIR_PALABRA);
 
-		//Obtengo el numero de linea y compruebo que la etiqueta de dicha linea de la cache es igual
-		//a la de la direccion. En ese caso es un acierto de cache, en el contrario en un fallo de cache
+		//Obtengo el numero de linea y compruebo que la etiqueta de dicha linea de la cache es igual a la de la direccion
+		//En ese caso es un acierto de cache, en el contrario en un fallo de cache
 		if(datos_cache[linea_int].ETQ == ETQ_int){
+			//Aunque no fuese especificado en el enunciado, por intuicion, incremento una unidad globaltime
+			globaltime++;
 			AciertoCACHE(datos_cache, globaltime, direccion, ETQ_int, linea_int, palabra_int, texto, &contador_texto);
 		}else{
 			numfallos++;
@@ -117,7 +119,10 @@ int main(){
 		//Hago el sleep() de un segundo
 		sleep(1);
 	}
-	tiempomedio = globaltime / numaccesos;
+
+	//Calculo el tiempo medio de acceso
+	tiempomedio = (float)globaltime / (float)numaccesos;
+
 	printf("Accesos totales: %d; fallos: %d; Tiempo medio: %.2f\n", numaccesos, numfallos, tiempomedio);
 	texto[contador_texto] = '\0';
 	printf("Texto leido: %s\n", texto);
